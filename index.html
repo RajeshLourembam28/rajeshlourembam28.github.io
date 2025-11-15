@@ -3,138 +3,285 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rajesh Lourembam — Portfolio</title>
+  <title>Rajesh Lourembam — Data & Automation Specialist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#6ee7b7;
-      --glass: rgba(255,255,255,0.04);
-      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      --bg:#071226; --card:#0b1220; --muted:#9aa4b2; --accent:#6ee7b7;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --glass-3: rgba(255,255,255,0.015);
+      --radius:14px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }
+
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071126 0%, #071933 60%);color:#e6eef6}
-    .container{max-width:1000px;margin:48px auto;padding:28px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    header{display:flex;gap:20px;align-items:center}
-    .avatar{width:110px;height:110px;border-radius:20px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:34px;color:#06202a}
-    h1{margin:0;font-size:28px}
-    .subtitle{color:var(--muted);margin-top:6px}
-    nav{margin-left:auto}
-    nav a{color:var(--muted);text-decoration:none;margin-left:16px}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#061226 0%, #071933 70%);color:#e6eef6;-webkit-font-smoothing:antialiased}
+    a{color:var(--accent); text-decoration:none}
+    a:focus{outline:3px solid rgba(110,231,183,0.08); outline-offset:2px; border-radius:6px}
 
-    .grid{display:grid;grid-template-columns:1fr 340px;gap:22px;margin-top:22px}
-    .card{background:var(--card);padding:18px;border-radius:14px}
-    .about p{color:var(--muted);line-height:1.6}
+    /* Page frame */
+    .page {
+      max-width:1200px;
+      margin:36px auto;
+      display:grid;
+      grid-template-columns:320px 1fr;
+      gap:28px;
+      padding:26px;
+    }
 
-    .skills{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .chip{background:var(--glass);padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:600;font-size:13px}
+    /* Sidebar */
+    .sidebar {
+      background:linear-gradient(180deg,var(--card), #061529);
+      border-radius:var(--radius);
+      padding:20px;
+      position:sticky;
+      top:32px;
+      height:fit-content;
+      box-shadow:0 8px 30px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.02);
+    }
 
-    .projects{display:flex;flex-direction:column;gap:12px}
-    .project{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.02)}
-    .project h3{margin:0 0 6px 0}
-    .project p{margin:0;color:var(--muted);font-size:14px}
+    .avatar {
+      width:110px;height:110px;border-radius:12px;overflow:hidden;margin:0 auto 14px auto;
+      background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 
-    .contact a{display:inline-block;margin-right:8px;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg, rgba(110,231,183,0.12), rgba(96,165,250,0.06));color:#dff7ee;text-decoration:none;font-weight:700}
+    .name {text-align:center}
+    .name h1{margin:0;font-size:20px}
+    .name .role{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 
-    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
+    .contact-block {margin-top:18px}
+    .contact-block p{margin:8px 0;color:var(--muted);font-size:14px}
+    .contact-btns {display:flex;gap:10px;margin-top:12px}
+    .btn {
+      display:inline-block;padding:9px 12px;border-radius:10px;font-weight:700;background:linear-gradient(90deg, rgba(110,231,183,0.09), rgba(96,165,250,0.04));
+      color:#dff7ee;text-decoration:none;font-size:13px;
+    }
+
+    .chip {display:inline-block;background:var(--glass);padding:7px 10px;border-radius:999px;color:var(--muted);font-weight:600;font-size:13px;margin:6px 6px 6px 0}
+    .skills-grid {margin-top:12px;display:flex;flex-wrap:wrap}
+
+    .card-quiet {background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.01)); padding:14px;border-radius:12px;margin-top:16px;border:1px solid rgba(255,255,255,0.02)}
+    .quick-title {font-size:13px;color:var(--muted);margin-bottom:8px}
+
+    /* Main content */
+    .main {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-radius:var(--radius); padding:20px 22px; border:1px solid rgba(255,255,255,0.02);
+      box-shadow:0 8px 30px rgba(2,6,23,0.45);
+    }
+
+    .hero {
+      display:flex;gap:18px;align-items:flex-start;
+    }
+    .hero .intro {flex:1}
+    .hero h2 {margin:0;font-size:22px}
+    .meta {color:var(--muted);margin-top:6px;font-size:14px}
+    .profile-paragraph {margin-top:12px;color:var(--muted);line-height:1.7; text-align:justify; text-justify:inter-word; hyphens:auto}
+
+    /* Section cards */
+    section {margin-top:20px}
+    .section-title {display:flex;justify-content:space-between;align-items:center}
+    .section-title h3 {margin:0;font-size:16px}
+    .section-sub {color:var(--muted);font-size:13px}
+
+    /* Timeline */
+    .timeline {margin-top:12px;border-left:3px solid rgba(255,255,255,0.03); padding-left:18px}
+    .tl-item {position:relative;margin-bottom:18px;padding-left:16px}
+    .tl-item::before{content:'';position:absolute;left:-27px;top:4px;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#60a5fa);box-shadow:0 0 0 4px rgba(110,231,183,0.03)}
+    .tl-item h4{margin:0;font-size:15px}
+    .tl-item small{display:block;color:var(--muted);margin-top:6px;font-size:13px}
+    .tl-item p{margin-top:10px;color:var(--muted);line-height:1.6;text-align:justify;text-justify:inter-word}
+
+    /* Projects list */
+    .projects {display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    .project {
+      background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.00));
+      padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);color:var(--muted)
+    }
+    .project h4{margin:0 0 6px 0;font-size:15px}
+    .project p{margin:0;font-size:14px;line-height:1.5;text-align:justify;text-justify:inter-word}
+
+    /* Education */
+    .education {display:flex;flex-direction:column;gap:14px}
+    .edu-item h4{margin:0;font-size:15px}
+    .edu-item small{color:var(--muted);font-size:13px;display:block;margin-top:4px}
+    .edu-item p{margin:6px 0 0 0;color:var(--muted);line-height:1.5;text-align:justify;text-justify:inter-word}
+
+    /* Footer */
+    footer {margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* Hover / micro interactions */
+    .project, .card-quiet, .tl-item {transition:transform .18s ease, box-shadow .18s ease}
+    .project:hover, .card-quiet:hover {transform:translateY(-4px); box-shadow:0 12px 30px rgba(2,6,23,0.45)}
+    .btn:hover {transform:translateY(-2px)}
 
     /* Responsive */
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr;}
-      nav{display:none}
+    @media (max-width:980px) {
+      .page {grid-template-columns:1fr; padding:18px}
+      .sidebar {position:relative; top:0; order:2}
+      .main {order:1}
+      .projects {grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="avatar">RL</div>
-      <div>
-        <h1>Rajesh Lourembam <span style="color:var(--muted);font-weight:600;font-size:15px">— Software Engineer & COBOL → Java Enthusiast</span></h1>
-        <div class="subtitle">Building modern tools to migrate and document legacy systems. Based in India.</div>
-        <div style="margin-top:10px">
-          <a href="https://github.com/rajeshlourembam28" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:700">github.com/rajeshlourembam28</a>
+  <div class="page" role="main">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Profile sidebar">
+      <div class="avatar" aria-hidden="false">
+        <img src="https://github.com/rajeshlourembam28.png" alt="Rajesh GitHub avatar" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;110&quot; height=&quot;110&quot;><rect width=&quot;100%&quot; height=&quot;100%&quot; fill=&quot;%2360a5fa&quot;/><text x=&quot;50%&quot; y=&quot;50%&quot; dominant-baseline=&quot;middle&quot; text-anchor=&quot;middle&quot; font-family=&quot;Arial&quot; font-size=&quot;34&quot; fill=&quot;%23031212&quot;>RL</text></svg>'">
+      </div>
+
+      <div class="name">
+        <h1>Rajesh Lourembam</h1>
+        <span class="role">Data & Automation Specialist</span>
+        <div class="meta" style="margin-top:8px">Bangalore • 7+ years</div>
+      </div>
+
+      <div class="contact-block">
+        <p><strong>Email</strong><br><a href="mailto:rajlourem@gmail.com">rajlourem@gmail.com</a></p>
+        <p><strong>Phone</strong><br><a href="tel:+918762275831">+91 - 8762275831</a></p>
+        <div class="contact-btns">
+          <a class="btn" href="mailto:rajlourem@gmail.com">Hire / Contact</a>
+          <a class="btn" href="/assets/Rajesh_Lourembam_CV.pdf" download>Download CV</a>
         </div>
       </div>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
 
-    <div class="grid">
-      <main>
-        <section id="about" class="card about">
-          <h2 style="margin-top:0">About me</h2>
-          <p>Hi — I’m Rajesh. I focus on converting legacy AS/400 & COBOL systems into modern, maintainable code and documentation. I enjoy automation, Python tooling, and designing robust conversion pipelines.</p>
-          <div class="skills">
-            <div class="chip">COBOL</div>
-            <div class="chip">Python</div>
-            <div class="chip">Java</div>
-            <div class="chip">FastAPI</div>
-            <div class="chip">MongoDB</div>
-            <div class="chip">OpenTelemetry</div>
-          </div>
-        </section>
+      <div class="card-quiet" aria-hidden="false">
+        <div class="quick-title">Areas</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="color:var(--muted);font-size:14px">GenAI Automation</div>
+          <div style="color:var(--muted);font-size:14px">AI-Driven Workflow Modernization</div>
+          <div style="color:var(--muted);font-size:14px">Intelligent Data Processing</div>
+        </div>
+      </div>
 
-        <section id="projects" style="margin-top:16px">
-          <h2 style="margin:0 0 8px 0;color:#dff7ee">Selected projects</h2>
-          <div class="projects">
-            <div class="project">
-              <h3>COBOL → Java Conversion Toolkit</h3>
-              <p>Automated pipeline that chunks legacy SignOn code into service classes and produces Java skeletons. (20k+ lines combined)</p>
-            </div>
+      <div class="card-quiet" style="margin-top:12px">
+        <div class="quick-title">Skills</div>
+        <div class="skills-grid" aria-hidden="false">
+          <span class="chip">Python</span>
+          <span class="chip">Azure OpenAI</span>
+          <span class="chip">Prompt Engineering</span>
+          <span class="chip">LLM Automation</span>
+          <span class="chip">SQL</span>
+          <span class="chip">Pandas</span>
+          <span class="chip">Flask</span>
+          <span class="chip">REST APIs</span>
+          <span class="chip">Model Integration</span>
+          <span class="chip">Agile</span>
+        </div>
+      </div>
 
-            <div class="project">
-              <h3>AS/400 Extraction Script</h3>
-              <p>Python toolkit to parse copybooks, physical/logical files, and output documentation and transformation artifacts.</p>
-            </div>
+      <div class="card-quiet" style="margin-top:12px">
+        <div class="quick-title">Interests</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+          <span class="chip">Cyber Security</span>
+          <span class="chip">Gaming</span>
+          <span class="chip">Martial Arts</span>
+          <span class="chip">Cosmology</span>
+        </div>
+      </div>
 
-            <div class="project">
-              <h3>Personal Blog & Notes</h3>
-              <p>Posts on migration strategies, OpenTelemetry integration, and packaging Python apps for distribution without exposing source code.</p>
-            </div>
-          </div>
-        </section>
+      <div style="text-align:center;margin-top:14px;color:var(--muted);font-size:12px">
+        © 2025 Rajesh Lourembam
+      </div>
+    </aside>
 
-        <section id="contact" style="margin-top:18px" class="card contact">
-          <h2 style="margin-top:0">Get in touch</h2>
-          <p class="subtitle" style="margin-bottom:12px">Available for freelance conversions, consulting, and tooling work.</p>
-          <a href="mailto:hello@example.com">Email</a>
-          <a href="https://github.com/rajeshlourembam28" target="_blank">GitHub</a>
-          <a href="#">Download Resume</a>
-        </section>
-      </main>
+    <!-- MAIN CONTENT -->
+    <main class="main" aria-label="Main profile content">
+      <div class="hero" role="region" aria-labelledby="hero-title">
+        <div class="intro">
+          <h2 id="hero-title">Profile</h2>
+          <div class="meta"></div>
+          <p class="profile-paragraph">
+            Results-driven Data, Automation & GenAI Specialist with 7+ years of experience in building intelligent automation solutions and scalable enterprise workflows. Strong expertise in Python, REST API integration, and system automation, with deep hands-on experience in Azure OpenAI, GPT-4o/5 automation, and prompt engineering. Skilled in designing AI-enabled services, integrating LLMs into existing platforms, and developing reliable backend solutions using Flask and SQL. Proven ability to create AI-powered documentation systems, automated code-analysis pipelines, and optimized BI processes that enhance speed, accuracy, and decision-making across business functions. Known for transforming manual processes into efficient, AI-driven workflows while ensuring performance, security, and scalability for enterprise environments.
+          </p>
+        </div>
+      </div>
 
-      <aside>
-        <div class="card">
-          <h3 style="margin-top:0">Quick facts</h3>
-          <p style="color:var(--muted);margin:6px 0">Location — Imphal, Manipur</p>
-          <p style="color:var(--muted);margin:6px 0">Experience — 7+ years (Python, migration)</p>
-          <p style="color:var(--muted);margin:6px 0">Open to — Contract / Remote</p>
-
-          <h3 style="margin-top:12px">Social</h3>
-          <p style="margin:0"><a href="https://github.com/rajeshlourembam28" target="_blank" style="color:var(--accent);text-decoration:none">@rajeshlourembam28 on GitHub</a></p>
+      <!-- EXPERIENCE -->
+      <section aria-labelledby="exp">
+        <div class="section-title">
+          <h3 id="exp">Work Experience</h3>
+          <div class="section-sub">Selected roles & responsibilities</div>
         </div>
 
-        <div class="card" style="margin-top:12px;text-align:center">
-          <h3 style="margin-top:0">Skills breakdown</h3>
-          <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap">
-            <div class="chip">Backend</div>
-            <div class="chip">Migration</div>
-            <div class="chip">Automation</div>
-            <div class="chip">Observability</div>
+        <div class="timeline" role="list">
+          <div class="tl-item" role="listitem">
+            <h4>Tata Consultancy Services — IT Analyst</h4>
+            <small>Jul 2018 – Present</small>
+            <p>Leading the development of GenAI-driven automation solutions, enterprise data workflows, and intelligent backend systems. Designed and deployed LLM-powered tools for documentation, code analysis, workflow modernization, and decision automation. Built scalable Python–Flask platforms, end-to-end API ecosystems, and high-impact data solutions across security, analytics, and business operations.</p>
+          </div>
+
+          <div class="tl-item" role="listitem">
+            <h4>Tata Consultancy Services — Data Science Intern</h4>
+            <small>Nov 2017 – Mar 2018</small>
+            <p>Developed data-driven models, analytical workflows, and prototype automation frameworks using Python and SQL. Contributed to early-stage tools focused on optimization and operational analytics.</p>
           </div>
         </div>
+      </section>
 
-      </aside>
-    </div>
+      <!-- PROJECTS / INITIATIVES -->
+      <section aria-labelledby="initiatives">
+        <div class="section-title">
+          <h3 id="initiatives">AI & Automation Initiatives</h3>
+          <div class="section-sub">Key projects that delivered measurable impact</div>
+        </div>
 
-    <footer>
-      Built with ❤️ • Hosted on GitHub Pages
-    </footer>
+        <div class="projects" role="list">
+          <div class="project" role="listitem">
+            <h4>GenAI Automation Framework</h4>
+            <p>Architected a reusable Python + Azure OpenAI framework enabling automated documentation generation, intelligent code interpretation, and self-updating workflow outputs. Reduced manual engineering effort significantly across multiple teams.</p>
+          </div>
+
+          <div class="project" role="listitem">
+            <h4>Enterprise API & Backend Modernization</h4>
+            <p>Built secure REST APIs and Flask-based backend services powering analytics, validation engines, AI assistance, and automated data pipelines. Improved system performance, stability, and scalability.</p>
+          </div>
+
+          <div class="project" role="listitem">
+            <h4>BI Optimization & Metadata Intelligence</h4>
+            <p>Engineered automated metadata extraction, dependency mapping, and report rationalization workflows to streamline BI ecosystems and reduce redundancy across business units.</p>
+          </div>
+
+          <div class="project" role="listitem">
+            <h4>AI-Enabled Analytics Platform</h4>
+            <p>Developed a modular Python–Flask platform integrating LLM features, analytics models, and scenario-based processing. Enabled faster decision-making and easy integration with front-end and enterprise systems.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EDUCATION -->
+      <section aria-labelledby="education">
+        <div class="section-title">
+          <h3 id="education">Education</h3>
+          <div class="section-sub">Academic background</div>
+        </div>
+
+        <div class="education">
+          <div class="edu-item">
+            <h4>M.Sc. Big Data Analytics</h4>
+            <small>St Joseph’s College (Autonomous), Bangalore — 2016–2018</small>
+            <p>Focused on statistical computing, data engineering, predictive modelling, and enterprise data workflows.</p>
+          </div>
+
+          <div class="edu-item">
+            <h4>B.Sc. Statistics, Computer Science & Mathematics</h4>
+            <small>St Aloysius College, Mangalore — 2013–2016</small>
+            <p>Studied core mathematics, statistical methods, programming foundations, and analytical problem-solving.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        © 2025 Rajesh Lourembam • Professional Portfolio • Last updated: 15 Nov 2025
+      </footer>
+    </main>
   </div>
 </body>
 </html>
