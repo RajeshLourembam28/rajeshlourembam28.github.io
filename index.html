@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rajesh Lourembam — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#6ee7b7;
+      --glass: rgba(255,255,255,0.04);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071126 0%, #071933 60%);color:#e6eef6}
+    .container{max-width:1000px;margin:48px auto;padding:28px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    header{display:flex;gap:20px;align-items:center}
+    .avatar{width:110px;height:110px;border-radius:20px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:34px;color:#06202a}
+    h1{margin:0;font-size:28px}
+    .subtitle{color:var(--muted);margin-top:6px}
+    nav{margin-left:auto}
+    nav a{color:var(--muted);text-decoration:none;margin-left:16px}
+
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:22px;margin-top:22px}
+    .card{background:var(--card);padding:18px;border-radius:14px}
+    .about p{color:var(--muted);line-height:1.6}
+
+    .skills{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .chip{background:var(--glass);padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:600;font-size:13px}
+
+    .projects{display:flex;flex-direction:column;gap:12px}
+    .project{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.02)}
+    .project h3{margin:0 0 6px 0}
+    .project p{margin:0;color:var(--muted);font-size:14px}
+
+    .contact a{display:inline-block;margin-right:8px;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg, rgba(110,231,183,0.12), rgba(96,165,250,0.06));color:#dff7ee;text-decoration:none;font-weight:700}
+
+    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr;}
+      nav{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="avatar">RL</div>
+      <div>
+        <h1>Rajesh Lourembam <span style="color:var(--muted);font-weight:600;font-size:15px">— Software Engineer & COBOL → Java Enthusiast</span></h1>
+        <div class="subtitle">Building modern tools to migrate and document legacy systems. Based in India.</div>
+        <div style="margin-top:10px">
+          <a href="https://github.com/rajeshlourembam28" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:700">github.com/rajeshlourembam28</a>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section id="about" class="card about">
+          <h2 style="margin-top:0">About me</h2>
+          <p>Hi — I’m Rajesh. I focus on converting legacy AS/400 & COBOL systems into modern, maintainable code and documentation. I enjoy automation, Python tooling, and designing robust conversion pipelines.</p>
+          <div class="skills">
+            <div class="chip">COBOL</div>
+            <div class="chip">Python</div>
+            <div class="chip">Java</div>
+            <div class="chip">FastAPI</div>
+            <div class="chip">MongoDB</div>
+            <div class="chip">OpenTelemetry</div>
+          </div>
+        </section>
+
+        <section id="projects" style="margin-top:16px">
+          <h2 style="margin:0 0 8px 0;color:#dff7ee">Selected projects</h2>
+          <div class="projects">
+            <div class="project">
+              <h3>COBOL → Java Conversion Toolkit</h3>
+              <p>Automated pipeline that chunks legacy SignOn code into service classes and produces Java skeletons. (20k+ lines combined)</p>
+            </div>
+
+            <div class="project">
+              <h3>AS/400 Extraction Script</h3>
+              <p>Python toolkit to parse copybooks, physical/logical files, and output documentation and transformation artifacts.</p>
+            </div>
+
+            <div class="project">
+              <h3>Personal Blog & Notes</h3>
+              <p>Posts on migration strategies, OpenTelemetry integration, and packaging Python apps for distribution without exposing source code.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" style="margin-top:18px" class="card contact">
+          <h2 style="margin-top:0">Get in touch</h2>
+          <p class="subtitle" style="margin-bottom:12px">Available for freelance conversions, consulting, and tooling work.</p>
+          <a href="mailto:hello@example.com">Email</a>
+          <a href="https://github.com/rajeshlourembam28" target="_blank">GitHub</a>
+          <a href="#">Download Resume</a>
+        </section>
+      </main>
+
+      <aside>
+        <div class="card">
+          <h3 style="margin-top:0">Quick facts</h3>
+          <p style="color:var(--muted);margin:6px 0">Location — Imphal, Manipur</p>
+          <p style="color:var(--muted);margin:6px 0">Experience — 7+ years (Python, migration)</p>
+          <p style="color:var(--muted);margin:6px 0">Open to — Contract / Remote</p>
+
+          <h3 style="margin-top:12px">Social</h3>
+          <p style="margin:0"><a href="https://github.com/rajeshlourembam28" target="_blank" style="color:var(--accent);text-decoration:none">@rajeshlourembam28 on GitHub</a></p>
+        </div>
+
+        <div class="card" style="margin-top:12px;text-align:center">
+          <h3 style="margin-top:0">Skills breakdown</h3>
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap">
+            <div class="chip">Backend</div>
+            <div class="chip">Migration</div>
+            <div class="chip">Automation</div>
+            <div class="chip">Observability</div>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+    <footer>
+      Built with ❤️ • Hosted on GitHub Pages
+    </footer>
+  </div>
+</body>
+</html>
