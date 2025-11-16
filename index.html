@@ -12,8 +12,6 @@
     :root{
       --bg:#071226; --card:#0b1220; --muted:#9aa4b2; --accent:#6ee7b7;
       --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.02);
-      --glass-3: rgba(255,255,255,0.015);
       --radius:14px;
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }
@@ -26,7 +24,7 @@
     /* Page frame */
     .page {
       max-width:1200px;
-      margin:76px auto 36px;
+      margin:36px auto;
       display:grid;
       grid-template-columns:320px 1fr;
       gap:28px;
@@ -55,7 +53,6 @@
     .name h1{margin:0;font-size:20px}
     .name .role{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 
-    /* compact contact row (desktop fallback uses normal block) */
     .contact-block {margin-top:18px}
     .contact-block p{margin:8px 0;color:var(--muted);font-size:14px}
     .contact-btns {display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
@@ -64,7 +61,7 @@
       color:#dff7ee;text-decoration:none;font-size:13px;
     }
 
-    .chip {display:inline-block;background:var(--glass);padding:7px 10px;border-radius:999px;color:var(--muted);font-weight:600;font-size:13px;margin:6px 6px 6px 0; white-space:nowrap;}
+    .chip {display:inline-block;background:var(--glass);padding:7px 10px;border-radius:999px;color:var(--muted);font-weight:600;font-size:13px;margin:6px 6px 6px 0; white-space:normal;}
     .skills-grid {margin-top:12px;display:flex;flex-wrap:wrap}
 
     .card-quiet {background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.01)); padding:14px;border-radius:12px;margin-top:16px;border:1px solid rgba(255,255,255,0.02)}
@@ -126,100 +123,67 @@
     .project:hover, .card-quiet:hover {transform:translateY(-4px); box-shadow:0 12px 30px rgba(2,6,23,0.45)}
     .btn:hover {transform:translateY(-2px)}
 
-    /* ---------- MOBILE - improved stacking and compact styles ---------- */
+    /* ---------- MOBILE: ensure everything is visible (no horizontal scroll) ---------- */
     @media (max-width:980px) {
-      /* page stack: sidebar on top (order -1) so contact shows immediately */
       .page {
         grid-template-columns:1fr;
         padding:14px;
         gap:14px;
-        margin-top:66px;
+        margin-top:12px;
       }
       .sidebar {
-        order:-1;           /* show above main */
-        position:relative;  /* disable sticky behaviour on mobile */
+        order:-1;
+        position:relative;
         top:0;
-        padding:12px;
+        padding:14px;
         border-radius:12px;
       }
 
-      /* compact sidebar avatar + meta */
-      .avatar { width:72px; height:72px; margin:6px auto 10px; border-radius:9px; }
-      .name h1 { font-size:16px; }
-      .name .role { font-size:12.5px; }
-      .contact-block p { font-size:13px; margin:6px 0; }
+      /* make avatar slightly smaller */
+      .avatar { width:88px; height:88px; margin:6px auto 12px; border-radius:10px; }
+      .name h1 { font-size:18px; }
+      .name .role { font-size:13px; }
 
-      /* contact buttons should be large tap targets and full width where possible */
-      .contact-btns { gap:8px; justify-content:center; }
+      /* contact inline stacked but visible */
+      .contact-block { display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+      .contact-block p { margin:4px 0; font-size:13px; color:var(--muted); width:48%; min-width:140px; }
+      .contact-block p a { color:var(--accent); word-break:break-all; }
+
+      .contact-btns { width:100%; justify-content:center; gap:10px; margin-top:10px; }
       .btn { padding:10px 14px; font-size:14px; }
 
-      /* reduce main card padding */
+      /* Areas / Skills / Interests: allow wrapping into multiple lines (visible) */
+      .card-quiet { padding:12px; margin-top:12px; }
+      .compact-row, .skills-grid { display:flex; flex-wrap:wrap; gap:8px; overflow:visible; padding-bottom:0; margin-bottom:0; }
+      .compact-row .chip, .skills-grid .chip { white-space:normal; flex: 0 1 auto; }
+
+      /* ensure chips wrap and don't force horizontal scroll */
+      .chip { font-size:13px; padding:6px 9px; margin:6px 6px 6px 0; }
+
+      /* content padding / main adjustments */
       .main { padding:14px; border-radius:12px; }
+      .profile-paragraph { font-size:15px; line-height:1.55; }
 
-      /* hero / profile paragraph - smaller line height and font */
-      .profile-paragraph { font-size:14px; line-height:1.55; }
-
-      /* projects single column */
+      /* projects: single column so everything shows */
       .projects { grid-template-columns:1fr; gap:10px; }
 
       /* timeline tweaks */
       .timeline { padding-left:12px; }
       .tl-item::before { left:-22px; top:6px; width:9px; height:9px; }
+      .tl-item { padding-left:12px; margin-bottom:14px; }
 
-      /* compact chips */
-      .chip { font-size:12px; padding:6px 8px; margin:4px 6px 6px 0; }
+      /* display full profile on mobile (not collapsed) */
+      .profile-summary { display:none; }
+      .profile-full { display:block; }
 
-      /* Read more link styling */
-      .read-more { display:inline-block; margin-top:8px; color:var(--accent); font-weight:700; cursor:pointer; }
-
-      /* anchor offsets for sticky headers (if any) */
-      h2, h3 { scroll-margin-top:62px; }
-
-      /* ======= New: horizontal compact rows for sidebar content ======= */
-      .compact-row {
-        display:flex;
-        gap:8px;
-        overflow-x:auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom:6px;
-        margin-bottom:6px;
-        scroll-snap-type: x mandatory;
-      }
-      .compact-row .chip {
-        flex: 0 0 auto;
-        scroll-snap-align: start;
-      }
-
-      /* compact contact inline (email + phone) */
-      .contact-inline {
-        display:flex;
-        gap:12px;
-        align-items:center;
-        justify-content:center;
-        overflow-x:auto;
-        -webkit-overflow-scrolling: touch;
-        white-space:nowrap;
-        margin-top:6px;
-        padding-bottom:6px;
-      }
-      .contact-inline a { color:var(--accent); white-space:nowrap; }
-
-      /* hide any duplicate footer-large card if present */
-      .card-quiet.footer-duplicate { display:none; }
-    }
-
-    /* extra: show inline summary and hide full text initially on mobile */
-    @media (max-width:980px) {
-      .profile-full { display:none; }
-    }
-    @media (min-width:981px) {
-      .profile-full { display:none; }
+      /* prevent any fixed header from covering content */
+      h2, h3 { scroll-margin-top:12px; }
     }
 
     /* Print / PDF friendly */
     @media print {
       html,body { background: #fff; color: #000 }
-      .mobile-topnav, .sidebar, .btn, .chip { display:none !important; }
+      .sidebar, .btn, .chip { display:none !important; }
       .page { max-width: 100%; margin: 0; padding: 0; grid-template-columns: 1fr; }
       .main { border: none; box-shadow: none; background: white; padding: 8px; }
       .profile-paragraph, .tl-item p, .project p, .edu-item p { color: #222; }
@@ -244,37 +208,28 @@
         <div class="meta" style="margin-top:8px">Bangalore • 7+ years</div>
       </div>
 
-      <!-- COMPACT CONTACT INLINE (desktop will still show stacked) -->
-      <div class="contact-block contact-inline">
-        <div>
-          <strong style="display:block;color:var(--muted);font-size:12px">Email</strong>
-          <a href="mailto:rajlourem@gmail.com">rajlourem@gmail.com</a>
-        </div>
-        <div>
-          <strong style="display:block;color:var(--muted);font-size:12px">Phone</strong>
-          <a href="tel:+918762275831">+91 - 8762275831</a>
-        </div>
+      <div class="contact-block">
+        <p><strong>Email</strong><br><a href="mailto:rajlourem@gmail.com">rajlourem@gmail.com</a></p>
+        <p><strong>Phone</strong><br><a href="tel:+918762275831">+91 - 8762275831</a></p>
       </div>
 
       <div class="contact-btns" style="justify-content:center;margin-top:8px">
         <a class="btn" href="mailto:rajlourem@gmail.com">Hire / Contact</a>
-          <a class="btn" href="/RajeshLourembam_Profile.pdf" download="RajeshLourembam_Profile.pdf">Download CV</a>
+        <a class="btn" href="/assets/Rajesh_Lourembam_CV.pdf" download="Rajesh_Lourembam_CV.pdf">Download CV</a>
       </div>
 
-      <!-- AREAS: horizontal scroll on mobile -->
       <div class="card-quiet" aria-hidden="false" style="margin-top:12px;">
         <div class="quick-title">Areas</div>
-        <div class="compact-row" aria-hidden="false">
+        <div class="compact-row">
           <div style="color:var(--muted);font-size:14px" class="chip">GenAI Automation</div>
           <div style="color:var(--muted);font-size:14px" class="chip">AI-Driven Workflow Modernization</div>
           <div style="color:var(--muted);font-size:14px" class="chip">Intelligent Data Processing</div>
         </div>
       </div>
 
-      <!-- SKILLS: horizontal scroll on mobile -->
       <div class="card-quiet" style="margin-top:12px">
         <div class="quick-title">Skills</div>
-        <div class="compact-row skills-grid" aria-hidden="false">
+        <div class="skills-grid compact-row" aria-hidden="false">
           <span class="chip">Python</span>
           <span class="chip">Azure OpenAI</span>
           <span class="chip">Prompt Engineering</span>
@@ -288,7 +243,6 @@
         </div>
       </div>
 
-      <!-- INTERESTS: horizontal on mobile -->
       <div class="card-quiet" style="margin-top:12px">
         <div class="quick-title">Interests</div>
         <div class="compact-row" style="margin-top:0">
@@ -311,13 +265,11 @@
           <h2 id="hero-title">Profile</h2>
           <div class="meta"></div>
 
-          <!-- PROFILE: summary + full + toggle -->
+          <!-- PROFILE: full visible on mobile -->
           <div class="profile-paragraph">
             <p class="profile-full">
               Results-driven Data, Automation & GenAI Specialist with 7+ years of experience in building intelligent automation solutions and scalable enterprise workflows. Strong expertise in Python, REST API integration, and system automation, with deep hands-on experience in Azure OpenAI, GPT-4o/5 automation, and prompt engineering. Skilled in designing AI-enabled services, integrating LLMs into existing platforms, and developing reliable backend solutions using Flask and SQL. Proven ability to create AI-powered documentation systems, automated code-analysis pipelines, and optimized BI processes that enhance speed, accuracy, and decision-making across business functions. Known for transforming manual processes into efficient, AI-driven workflows while ensuring performance, security, and scalability for enterprise environments.
             </p>
-
-            <span class="read-more" id="readMoreToggle" aria-expanded="false" style="display:none">Read more</span>
           </div>
         </div>
       </div>
@@ -415,42 +367,6 @@
       }, { threshold: 0.12 });
 
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    })();
-
-    // Read-more toggle for mobile profile summary
-    (function(){
-      const toggle = document.getElementById('readMoreToggle');
-      if (!toggle) return;
-      const full = document.querySelector('.profile-full');
-
-      function update() {
-        if (window.innerWidth <= 980) {
-          // show toggle
-          toggle.style.display = 'inline-block';
-          toggle.onclick = function() {
-            const expanded = toggle.getAttribute('aria-expanded') === 'true';
-            if (!expanded) {
-              full.style.display = 'block';
-              summary.style.display = 'none';
-              toggle.textContent = 'Show less';
-              toggle.setAttribute('aria-expanded','true');
-              full.scrollIntoView({behavior:'smooth', block:'start'});
-            } else {
-              full.style.display = 'none';
-              summary.style.display = 'block';
-              toggle.textContent = 'Read more';
-              toggle.setAttribute('aria-expanded','false');
-            }
-          };
-        } else {
-          toggle.style.display = 'none';
-          full.style.display = 'block';
-          summary.style.display = 'none';
-        }
-      }
-
-      update();
-      window.addEventListener('resize', update);
     })();
   </script>
 </body>
