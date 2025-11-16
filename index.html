@@ -23,29 +23,10 @@
     a{color:var(--accent); text-decoration:none}
     a:focus{outline:3px solid rgba(110,231,183,0.08); outline-offset:2px; border-radius:6px}
 
-    /* MOBILE TOP NAV (hidden on desktop) */
-    .mobile-topnav {
-      position:fixed;
-      left:0; right:0;
-      top:0;
-      height:46px;
-      background:linear-gradient(90deg, rgba(6,18,38,0.95), rgba(7,22,38,0.9));
-      display:none;
-      align-items:center;
-      gap:10px;
-      padding:6px 12px;
-      z-index:1200;
-      border-bottom:1px solid rgba(255,255,255,0.02);
-      backdrop-filter: blur(6px);
-    }
-    .mobile-topnav .nav-inner { display:flex; align-items:center; gap:8px; width:100%; max-width:1200px; margin:0 auto; }
-    .mobile-topnav a { color:var(--muted); font-weight:600; font-size:14px; padding:8px 10px; border-radius:8px; }
-    .mobile-topnav a.active { color:#e6eef6; background: rgba(110,231,183,0.06) }
-
     /* Page frame */
     .page {
       max-width:1200px;
-      margin:76px auto 36px; /* top margin increased to account for mobile nav when visible */
+      margin:76px auto 36px;
       display:grid;
       grid-template-columns:320px 1fr;
       gap:28px;
@@ -74,15 +55,16 @@
     .name h1{margin:0;font-size:20px}
     .name .role{display:block;color:var(--muted);font-size:13px;margin-top:6px}
 
+    /* compact contact row (desktop fallback uses normal block) */
     .contact-block {margin-top:18px}
     .contact-block p{margin:8px 0;color:var(--muted);font-size:14px}
-    .contact-btns {display:flex;gap:10px;margin-top:12px}
+    .contact-btns {display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
     .btn {
       display:inline-block;padding:9px 12px;border-radius:10px;font-weight:700;background:linear-gradient(90deg, rgba(110,231,183,0.09), rgba(96,165,250,0.04));
       color:#dff7ee;text-decoration:none;font-size:13px;
     }
 
-    .chip {display:inline-block;background:var(--glass);padding:7px 10px;border-radius:999px;color:var(--muted);font-weight:600;font-size:13px;margin:6px 6px 6px 0}
+    .chip {display:inline-block;background:var(--glass);padding:7px 10px;border-radius:999px;color:var(--muted);font-weight:600;font-size:13px;margin:6px 6px 6px 0; white-space:nowrap;}
     .skills-grid {margin-top:12px;display:flex;flex-wrap:wrap}
 
     .card-quiet {background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.01)); padding:14px;border-radius:12px;margin-top:16px;border:1px solid rgba(255,255,255,0.02)}
@@ -187,17 +169,43 @@
       /* compact chips */
       .chip { font-size:12px; padding:6px 8px; margin:4px 6px 6px 0; }
 
-      /* hide secondary big footer avatar card if duplicated */
-      .card-quiet.footer-duplicate { display:none; }
-
       /* Read more link styling */
       .read-more { display:inline-block; margin-top:8px; color:var(--accent); font-weight:700; cursor:pointer; }
 
-      /* show mobile topnav */
-      .mobile-topnav { display:flex; }
-      .page { margin-top:86px; } /* give extra spacing when topnav visible */
-      /* anchor offsets for sticky mobile nav */
+      /* anchor offsets for sticky headers (if any) */
       h2, h3 { scroll-margin-top:62px; }
+
+      /* ======= New: horizontal compact rows for sidebar content ======= */
+      .compact-row {
+        display:flex;
+        gap:8px;
+        overflow-x:auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom:6px;
+        margin-bottom:6px;
+        scroll-snap-type: x mandatory;
+      }
+      .compact-row .chip {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+      }
+
+      /* compact contact inline (email + phone) */
+      .contact-inline {
+        display:flex;
+        gap:12px;
+        align-items:center;
+        justify-content:center;
+        overflow-x:auto;
+        -webkit-overflow-scrolling: touch;
+        white-space:nowrap;
+        margin-top:6px;
+        padding-bottom:6px;
+      }
+      .contact-inline a { color:var(--accent); white-space:nowrap; }
+
+      /* hide any duplicate footer-large card if present */
+      .card-quiet.footer-duplicate { display:none; }
     }
 
     /* extra: show inline summary and hide full text initially on mobile */
@@ -225,16 +233,6 @@
   </style>
 </head>
 <body>
-  <!-- MOBILE TOP NAV -->
-  <div class="mobile-topnav" id="mobileTopNav" aria-hidden="true">
-    <div class="nav-inner">
-      <a href="#exp" data-target="exp">Experience</a>
-      <a href="#initiatives" data-target="initiatives">Initiatives</a>
-      <a href="#education" data-target="education">Education</a>
-      <a href="#contact" data-target="contact">Contact</a>
-    </div>
-  </div>
-
   <div class="page" role="main">
     <!-- SIDEBAR -->
     <aside class="sidebar reveal" aria-label="Profile sidebar" id="contact">
@@ -248,27 +246,37 @@
         <div class="meta" style="margin-top:8px">Bangalore • 7+ years</div>
       </div>
 
-      <div class="contact-block">
-        <p><strong>Email</strong><br><a href="mailto:rajlourem@gmail.com">rajlourem@gmail.com</a></p>
-        <p><strong>Phone</strong><br><a href="tel:+918762275831">+91 - 8762275831</a></p>
-        <div class="contact-btns">
-          <a class="btn" href="mailto:rajlourem@gmail.com">Hire / Contact</a>
+      <!-- COMPACT CONTACT INLINE (desktop will still show stacked) -->
+      <div class="contact-block contact-inline">
+        <div>
+          <strong style="display:block;color:var(--muted);font-size:12px">Email</strong>
+          <a href="mailto:rajlourem@gmail.com">rajlourem@gmail.com</a>
+        </div>
+        <div>
+          <strong style="display:block;color:var(--muted);font-size:12px">Phone</strong>
+          <a href="tel:+918762275831">+91 - 8762275831</a>
+        </div>
+      </div>
+
+      <div class="contact-btns" style="justify-content:center;margin-top:8px">
+        <a class="btn" href="mailto:rajlourem@gmail.com">Hire / Contact</a>
           <a class="btn" href="/RajeshLourembam_Profile.pdf" download="RajeshLourembam_Profile.pdf">Download CV</a>
-        </div>
       </div>
 
-      <div class="card-quiet" aria-hidden="false">
+      <!-- AREAS: horizontal scroll on mobile -->
+      <div class="card-quiet" aria-hidden="false" style="margin-top:12px;">
         <div class="quick-title">Areas</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="color:var(--muted);font-size:14px">GenAI Automation</div>
-          <div style="color:var(--muted);font-size:14px">AI-Driven Workflow Modernization</div>
-          <div style="color:var(--muted);font-size:14px">Intelligent Data Processing</div>
+        <div class="compact-row" aria-hidden="false">
+          <div style="color:var(--muted);font-size:14px" class="chip">GenAI Automation</div>
+          <div style="color:var(--muted);font-size:14px" class="chip">AI-Driven Workflow Modernization</div>
+          <div style="color:var(--muted);font-size:14px" class="chip">Intelligent Data Processing</div>
         </div>
       </div>
 
+      <!-- SKILLS: horizontal scroll on mobile -->
       <div class="card-quiet" style="margin-top:12px">
         <div class="quick-title">Skills</div>
-        <div class="skills-grid" aria-hidden="false">
+        <div class="compact-row skills-grid" aria-hidden="false">
           <span class="chip">Python</span>
           <span class="chip">Azure OpenAI</span>
           <span class="chip">Prompt Engineering</span>
@@ -282,9 +290,10 @@
         </div>
       </div>
 
+      <!-- INTERESTS: horizontal on mobile -->
       <div class="card-quiet" style="margin-top:12px">
         <div class="quick-title">Interests</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <div class="compact-row" style="margin-top:0">
           <span class="chip">Cyber Security</span>
           <span class="chip">Gaming</span>
           <span class="chip">Martial Arts</span>
@@ -304,7 +313,7 @@
           <h2 id="hero-title">Profile</h2>
           <div class="meta"></div>
 
-          <!-- REPLACED PROFILE PARAGRAPH: SUMMARY + FULL + TOGGLE -->
+          <!-- PROFILE: summary + full + toggle -->
           <div class="profile-paragraph">
             <p class="profile-summary">
               Results-driven Data, Automation & GenAI Specialist with 7+ years of experience building intelligent automation solutions and scalable enterprise workflows.
@@ -314,15 +323,15 @@
               Results-driven Data, Automation & GenAI Specialist with 7+ years of experience in building intelligent automation solutions and scalable enterprise workflows. Strong expertise in Python, REST API integration, and system automation, with deep hands-on experience in Azure OpenAI, GPT-4o/5 automation, and prompt engineering. Skilled in designing AI-enabled services, integrating LLMs into existing platforms, and developing reliable backend solutions using Flask and SQL. Proven ability to create AI-powered documentation systems, automated code-analysis pipelines, and optimized BI processes that enhance speed, accuracy, and decision-making across business functions. Known for transforming manual processes into efficient, AI-driven workflows while ensuring performance, security, and scalability for enterprise environments.
             </p>
 
-            <span class="read-more" id="readMoreToggle" aria-expanded="false">Read more</span>
+            <span class="read-more" id="readMoreToggle" aria-expanded="false" style="display:none">Read more</span>
           </div>
         </div>
       </div>
 
       <!-- EXPERIENCE -->
-      <section aria-labelledby="exp" class="reveal">
+      <section aria-labelledby="exp" class="reveal" id="exp">
         <div class="section-title">
-          <h3 id="exp">Work Experience</h3>
+          <h3 id="">Work Experience</h3>
           <div class="section-sub">Selected roles & responsibilities</div>
         </div>
 
@@ -342,9 +351,9 @@
       </section>
 
       <!-- PROJECTS / INITIATIVES -->
-      <section aria-labelledby="initiatives" class="reveal">
+      <section aria-labelledby="initiatives" class="reveal" id="initiatives">
         <div class="section-title">
-          <h3 id="initiatives">AI & Automation Initiatives</h3>
+          <h3 id="">AI & Automation Initiatives</h3>
           <div class="section-sub">Key projects that delivered measurable impact</div>
         </div>
 
@@ -372,9 +381,9 @@
       </section>
 
       <!-- EDUCATION -->
-      <section aria-labelledby="education" class="reveal">
+      <section aria-labelledby="education" class="reveal" id="education">
         <div class="section-title">
-          <h3 id="education">Education</h3>
+          <h3 id="">Education</h3>
           <div class="section-sub">Academic background</div>
         </div>
 
@@ -414,52 +423,6 @@
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     })();
 
-    // Mobile top nav active-link handling & smooth scroll
-    (function () {
-      const mobileNav = document.getElementById('mobileTopNav');
-      const links = mobileNav ? mobileNav.querySelectorAll('a') : [];
-      // show/hide mobile nav based on width
-      function updateMobileNavVisibility() {
-        if (!mobileNav) return;
-        if (window.innerWidth <= 980) {
-          mobileNav.setAttribute('aria-hidden', 'false');
-          mobileNav.style.display = 'flex';
-        } else {
-          mobileNav.setAttribute('aria-hidden', 'true');
-          mobileNav.style.display = 'none';
-        }
-      }
-      updateMobileNavVisibility();
-      window.addEventListener('resize', updateMobileNavVisibility);
-
-      // highlight active section in mobile nav on scroll
-      const sectionIds = ['exp','initiatives','education','contact'];
-      const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
-      window.addEventListener('scroll', () => {
-        let current = null;
-        for (const s of sectionEls) {
-          const rect = s.getBoundingClientRect();
-          if (rect.top <= 80 && rect.bottom >= 80) { current = s.id; break; }
-        }
-        links.forEach(a => {
-          if (a.dataset.target === current) a.classList.add('active'); else a.classList.remove('active');
-        });
-      }, { passive: true });
-
-      // smooth scroll for mobile nav links
-      links.forEach(a => {
-        a.addEventListener('click', (ev) => {
-          ev.preventDefault();
-          const id = a.getAttribute('href').slice(1);
-          const target = document.getElementById(id);
-          if (target) {
-            const top = target.getBoundingClientRect().top + window.scrollY - 56; // offset for nav
-            window.scrollTo({ top, behavior: 'smooth' });
-          }
-        });
-      });
-    })();
-
     // Read-more toggle for mobile profile summary
     (function(){
       const toggle = document.getElementById('readMoreToggle');
@@ -469,8 +432,8 @@
 
       function update() {
         if (window.innerWidth <= 980) {
+          // show toggle
           toggle.style.display = 'inline-block';
-          // initial state handled by CSS: summary visible, full hidden
           toggle.onclick = function() {
             const expanded = toggle.getAttribute('aria-expanded') === 'true';
             if (!expanded) {
@@ -487,7 +450,6 @@
             }
           };
         } else {
-          // desktop: ensure full text shows and toggle hidden
           toggle.style.display = 'none';
           full.style.display = 'block';
           summary.style.display = 'none';
