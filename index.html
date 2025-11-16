@@ -210,12 +210,10 @@
 
     /* extra: show inline summary and hide full text initially on mobile */
     @media (max-width:980px) {
-      .profile-full { display:none; }      /* full paragraph hidden on mobile */
-      .profile-summary { display:block; }  /* small summary visible */
+      .profile-full { display:none; }
     }
     @media (min-width:981px) {
-      .profile-full { display:block; }     /* full paragraph visible on desktop */
-      .profile-summary { display:none; }   /* summary hidden on desktop */
+      .profile-full { display:none; }
     }
 
     /* Print / PDF friendly */
@@ -315,10 +313,6 @@
 
           <!-- PROFILE: summary + full + toggle -->
           <div class="profile-paragraph">
-            <p class="profile-summary">
-              Results-driven Data, Automation & GenAI Specialist with 7+ years of experience building intelligent automation solutions and scalable enterprise workflows.
-            </p>
-
             <p class="profile-full">
               Results-driven Data, Automation & GenAI Specialist with 7+ years of experience in building intelligent automation solutions and scalable enterprise workflows. Strong expertise in Python, REST API integration, and system automation, with deep hands-on experience in Azure OpenAI, GPT-4o/5 automation, and prompt engineering. Skilled in designing AI-enabled services, integrating LLMs into existing platforms, and developing reliable backend solutions using Flask and SQL. Proven ability to create AI-powered documentation systems, automated code-analysis pipelines, and optimized BI processes that enhance speed, accuracy, and decision-making across business functions. Known for transforming manual processes into efficient, AI-driven workflows while ensuring performance, security, and scalability for enterprise environments.
             </p>
@@ -428,7 +422,6 @@
       const toggle = document.getElementById('readMoreToggle');
       if (!toggle) return;
       const full = document.querySelector('.profile-full');
-      const summary = document.querySelector('.profile-summary');
 
       function update() {
         if (window.innerWidth <= 980) {
