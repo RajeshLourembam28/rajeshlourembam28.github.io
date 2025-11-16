@@ -144,17 +144,70 @@
     .project:hover, .card-quiet:hover {transform:translateY(-4px); box-shadow:0 12px 30px rgba(2,6,23,0.45)}
     .btn:hover {transform:translateY(-2px)}
 
-    /* Responsive */
+    /* ---------- MOBILE - improved stacking and compact styles ---------- */
     @media (max-width:980px) {
+      /* page stack: sidebar on top (order -1) so contact shows immediately */
+      .page {
+        grid-template-columns:1fr;
+        padding:14px;
+        gap:14px;
+        margin-top:66px;
+      }
+      .sidebar {
+        order:-1;           /* show above main */
+        position:relative;  /* disable sticky behaviour on mobile */
+        top:0;
+        padding:12px;
+        border-radius:12px;
+      }
+
+      /* compact sidebar avatar + meta */
+      .avatar { width:72px; height:72px; margin:6px auto 10px; border-radius:9px; }
+      .name h1 { font-size:16px; }
+      .name .role { font-size:12.5px; }
+      .contact-block p { font-size:13px; margin:6px 0; }
+
+      /* contact buttons should be large tap targets and full width where possible */
+      .contact-btns { gap:8px; justify-content:center; }
+      .btn { padding:10px 14px; font-size:14px; }
+
+      /* reduce main card padding */
+      .main { padding:14px; border-radius:12px; }
+
+      /* hero / profile paragraph - smaller line height and font */
+      .profile-paragraph { font-size:14px; line-height:1.55; }
+
+      /* projects single column */
+      .projects { grid-template-columns:1fr; gap:10px; }
+
+      /* timeline tweaks */
+      .timeline { padding-left:12px; }
+      .tl-item::before { left:-22px; top:6px; width:9px; height:9px; }
+
+      /* compact chips */
+      .chip { font-size:12px; padding:6px 8px; margin:4px 6px 6px 0; }
+
+      /* hide secondary big footer avatar card if duplicated */
+      .card-quiet.footer-duplicate { display:none; }
+
+      /* Read more link styling */
+      .read-more { display:inline-block; margin-top:8px; color:var(--accent); font-weight:700; cursor:pointer; }
+
+      /* show mobile topnav */
       .mobile-topnav { display:flex; }
-      .page {grid-template-columns:1fr; padding:18px; margin-top:66px}
-      .sidebar {position:relative; top:0; order:2}
-      .main {order:1}
-      .projects {grid-template-columns:1fr}
-      .avatar {width:96px;height:96px}
-      .chip{font-size:12px}
+      .page { margin-top:86px; } /* give extra spacing when topnav visible */
       /* anchor offsets for sticky mobile nav */
       h2, h3 { scroll-margin-top:62px; }
+    }
+
+    /* extra: show inline summary and hide full text initially on mobile */
+    @media (max-width:980px) {
+      .profile-full { display:none; }      /* full paragraph hidden on mobile */
+      .profile-summary { display:block; }  /* small summary visible */
+    }
+    @media (min-width:981px) {
+      .profile-full { display:block; }     /* full paragraph visible on desktop */
+      .profile-summary { display:none; }   /* summary hidden on desktop */
     }
 
     /* Print / PDF friendly */
@@ -250,9 +303,19 @@
         <div class="intro">
           <h2 id="hero-title">Profile</h2>
           <div class="meta"></div>
-          <p class="profile-paragraph">
-            Results-driven Data, Automation & GenAI Specialist with 7+ years of experience in building intelligent automation solutions and scalable enterprise workflows. Strong expertise in Python, REST API integration, and system automation, with deep hands-on experience in Azure OpenAI, GPT-4o/5 automation, and prompt engineering. Skilled in designing AI-enabled services, integrating LLMs into existing platforms, and developing reliable backend solutions using Flask and SQL. Proven ability to create AI-powered documentation systems, automated code-analysis pipelines, and optimized BI processes that enhance speed, accuracy, and decision-making across business functions. Known for transforming manual processes into efficient, AI-driven workflows while ensuring performance, security, and scalability for enterprise environments.
-          </p>
+
+          <!-- REPLACED PROFILE PARAGRAPH: SUMMARY + FULL + TOGGLE -->
+          <div class="profile-paragraph">
+            <p class="profile-summary">
+              Results-driven Data, Automation & GenAI Specialist with 7+ years of experience building intelligent automation solutions and scalable enterprise workflows.
+            </p>
+
+            <p class="profile-full">
+              Results-driven Data, Automation & GenAI Specialist with 7+ years of experience in building intelligent automation solutions and scalable enterprise workflows. Strong expertise in Python, REST API integration, and system automation, with deep hands-on experience in Azure OpenAI, GPT-4o/5 automation, and prompt engineering. Skilled in designing AI-enabled services, integrating LLMs into existing platforms, and developing reliable backend solutions using Flask and SQL. Proven ability to create AI-powered documentation systems, automated code-analysis pipelines, and optimized BI processes that enhance speed, accuracy, and decision-making across business functions. Known for transforming manual processes into efficient, AI-driven workflows while ensuring performance, security, and scalability for enterprise environments.
+            </p>
+
+            <span class="read-more" id="readMoreToggle" aria-expanded="false">Read more</span>
+          </div>
         </div>
       </div>
 
@@ -351,12 +414,13 @@
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     })();
 
-    // Mobile top nav active-link handling
+    // Mobile top nav active-link handling & smooth scroll
     (function () {
       const mobileNav = document.getElementById('mobileTopNav');
       const links = mobileNav ? mobileNav.querySelectorAll('a') : [];
       // show/hide mobile nav based on width
       function updateMobileNavVisibility() {
+        if (!mobileNav) return;
         if (window.innerWidth <= 980) {
           mobileNav.setAttribute('aria-hidden', 'false');
           mobileNav.style.display = 'flex';
@@ -394,6 +458,44 @@
           }
         });
       });
+    })();
+
+    // Read-more toggle for mobile profile summary
+    (function(){
+      const toggle = document.getElementById('readMoreToggle');
+      if (!toggle) return;
+      const full = document.querySelector('.profile-full');
+      const summary = document.querySelector('.profile-summary');
+
+      function update() {
+        if (window.innerWidth <= 980) {
+          toggle.style.display = 'inline-block';
+          // initial state handled by CSS: summary visible, full hidden
+          toggle.onclick = function() {
+            const expanded = toggle.getAttribute('aria-expanded') === 'true';
+            if (!expanded) {
+              full.style.display = 'block';
+              summary.style.display = 'none';
+              toggle.textContent = 'Show less';
+              toggle.setAttribute('aria-expanded','true');
+              full.scrollIntoView({behavior:'smooth', block:'start'});
+            } else {
+              full.style.display = 'none';
+              summary.style.display = 'block';
+              toggle.textContent = 'Read more';
+              toggle.setAttribute('aria-expanded','false');
+            }
+          };
+        } else {
+          // desktop: ensure full text shows and toggle hidden
+          toggle.style.display = 'none';
+          full.style.display = 'block';
+          summary.style.display = 'none';
+        }
+      }
+
+      update();
+      window.addEventListener('resize', update);
     })();
   </script>
 </body>
